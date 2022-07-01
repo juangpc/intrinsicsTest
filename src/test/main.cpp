@@ -7,10 +7,8 @@
 
 
 #ifdef _MSC_VER
-  // MSVC...
   #define ALIGN(n) declspec(align(n))
 #else
-  // the civilised world...
   #define ALIGN(n) __attribute__ ((aligned(n)))
 #endif
 
