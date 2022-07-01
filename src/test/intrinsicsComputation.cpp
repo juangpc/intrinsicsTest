@@ -13,14 +13,12 @@
 
 void intrinsicsComputation(const float* a, const float* b, const float* c, float* d)
 {
-    // std::cout << "inside intrinsics!\n";
     __m256 av = _mm256_loadu_ps(a);
     __m256 bv = _mm256_loadu_ps(b);
     __m256 cv = _mm256_loadu_ps(c);
     __m256 dv = _mm256_fmadd_ps(av, bv, cv);
-    _mm256_store_ps(d,dv);
-    // std::cout << "leaving intrinsics!\n";
-
+    //  _mm256_storeu_ps(d,dv); //correct solution
+    _mm256_store_ps(d, dv);
 }
 
 void testIntrinsicsImplementation(int numRepetitions, float* a, float* b, float* c, float* d)
