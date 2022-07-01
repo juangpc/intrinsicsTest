@@ -19,4 +19,4 @@ set_target_properties( avxCheck
 set_property(TARGET avxCheck PROPERTY CXX_STANDARD 11)
 
 # target_compile_definitions(avxCheck PUBLIC )
-target_compile_options(avxCheck PRIVATE -mavx -mfma -O1)
+target_compile_options(avxCheck PRIVATE -mavx -mfma -O3)

@@ -5,6 +5,16 @@
 #include "sequentialComputation.hpp"
 #include "intrinsicsComputation.hpp"
 
+
+#ifdef _MSC_VER
+  // MSVC...
+  #define ALIGN(n) declspec(align(n))
+#else
+  // the civilised world...
+  #define ALIGN(n) __attribute__ ((aligned(n)))
+#endif
+
+
 int main(int argc, char** argv) 
 {
     int numKRepetitions{0};
@@ -21,10 +31,10 @@ int main(int argc, char** argv)
         numKRepetitions = argIn;
     }
 
-    float a[8];
-    float b[8];
-    float c[8];
-    float d[8];
+    ALIGN(32) float a[8];
+    ALIGN(32) float b[8];
+    ALIGN(32) float c[8];
+    ALIGN(32) float d[8];
 
     float d2[8 * 2];
     for(int i = 0; i < 16; i++)
@@ -39,17 +49,17 @@ int main(int argc, char** argv)
     }
     float* d_aligned = (float*)(head+i);
 
-    // initArrays(a, b, c, d, 2.0f, 5.0f);
-    // std::cout << "\n";
-    // std::cout << "Executing sequential mode: \n";
-    // std::cout << "\n";
+    initArrays(a, b, c, d, 2.0f, 5.0f);
+    std::cout << "\n";
+    std::cout << "Executing sequential mode: \n";
+    std::cout << "\n";
 
-    // testSequentialImplementation(numKRepetitions,a, b, c, d);
+    testSequentialImplementation(numKRepetitions,a, b, c, d);
 
     initArrays(a, b, c, d, 2.0f, 5.0f);
-    // std::cout << "\n";
-    // std::cout << "Executing intrinsics: \n";
-    // std::cout << "\n";
+    std::cout << "\n";
+    std::cout << "Executing intrinsics: \n";
+    std::cout << "\n";
 
     testIntrinsicsImplementation(numKRepetitions, a, b, c, d_aligned);
     
